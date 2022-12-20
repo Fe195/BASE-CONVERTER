@@ -1,58 +1,128 @@
-'use strict';
+const fromSelected = document.getElementById("from-select");
+const toSelected = document.getElementById("to-select");
+const from = document.getElementById("from-input");
+const to = document.getElementById("to-input");
+const error = document.getElementById("error");
+
+let initialBase; //= "Binary",
+let lastBase; //= "Binary";
 
 
-function submit() {
-  var inputFormat = parseInt(document.getElementById('inputFormat').value);
-  var outputFormat = parseInt(document.getElementById('outputFormat').value);
-  var input = document.getElementById('input').value;
-  var output;
-  if (input == '') {
-    output = 'Input Required';
-  } else if (inputFormat == outputFormat) {
-    ouptut = input;
-  } else {
-    output = format(input, inputFormat, outputFormat);
-  }
+// fromSelected.addEventListener("change", function() {
+//     initialBase = fromSelected.options[fromSelected.selectedIndex].text;
+//     from.placeholder = initialBase + " Number";
+// });
 
-  document.getElementById('output').value = output;
-}
+// toSelected.addEventListener("change", function() {
+//     lastBase = toSelected.options[toSelected.selectedIndex].text;
+//     to.placeholder = lastBase + " Number";
+// });
 
-function swap() {
-  var inputFormat = document.getElementById('inputFormat').value;
-  var outputFormat = document.getElementById('outputFormat').value;
-  document.getElementById('inputFormat').value = outputFormat;
-  document.getElementById('outputFormat').value = inputFormat;
-}
+from.addEventListener("input", function() {
+    error.style.display = "none";
+});
 
-function format(input, inputFormat, outputFormat) {
-  var temp, output;
-  switch (inputFormat) {
-    case 1:
-      temp = parseInt(input, 2);
-      break;
-    case 2:
-      temp = parseInt(input, 8);
-      break;
-    case 3:
-      temp = parseInt(input, 10);
-      break;
-    case 4:
-      temp = parseInt(input, 16);
-      break;
-  }
-  switch (outputFormat) {
-    case 1:
-      output = temp.toString(2);
-      break;
-    case 2:
-      output = temp.toString(8);
-      break;
-    case 3:
-      output = temp.toString(10);
-      break;
-    case 4:
-      output = temp.toString(16);
-      break;
-  }
-  return output;
-}
+let fromValue;
+document.getElementById("convert-button").addEventListener("click", function() {
+    initialBase = fromSelected.options[fromSelected.selectedIndex].text;
+    from.placeholder = initialBase + " Number";
+    console.log("first" + initialBase);
+    lastBase = toSelected.options[toSelected.selectedIndex].text;
+    to.placeholder = lastBase + " Number";
+    console.log("second" + lastBase);
+
+    switch (initialBase) {
+        case "Binary":
+            fromValue = from.value;
+            if (/^[01]*$/.test(fromValue)) { //110011->
+                switch (lastBase) {
+                    case "Decimal":
+                        to.value = parseInt(fromValue, 2);
+                        break;
+                    case "Hexadecimal":
+                        to.value = parseInt(fromValue, 2).toString(16).toUpperCase();
+                        break;
+                    case "Octal":
+                        to.value = parseInt(fromValue, 2).toString(8);
+                        break;
+                    default:
+                        to.value = fromValue;
+                }
+            } else {
+                error.style.display = "inherit";
+                error.innerText = "Invalid " + initialBase + " Number";
+                to.value = "";
+            }
+            break;
+
+        case "Decimal":
+            fromValue = from.value;
+            if (/^[0-9]*$/.test(fromValue)) {//12345
+                switch (lastBase) {
+                    case "Binary":
+                        to.value = Math.abs(fromValue).toString(2);
+                        break;
+                    case "Hexadecimal":
+                        to.value = Math.abs(fromValue).toString(16).toUpperCase();
+                        break;
+                    case "Octal":
+                        to.value = Math.abs(fromValue).toString(8);
+                        break;
+                    default:
+                        to.value = fromValue;
+                }
+            } else {
+                error.style.display = "inherit";
+                error.innerText = "Invalid " + initialBase +
+                    " Number";
+                to.value = "";
+            }
+            break;
+
+        case "Hexadecimal":
+            fromValue = from.value;
+            if (/^[0-9a-fA-F]*$/.test(fromValue)) {//0-9 a-f input = 123fAc
+                switch (lastBase) {
+                    case "Binary":
+                        to.value = parseInt(fromValue, 16).toString(2);
+                        break;
+                    case "Decimal":
+                        to.value = parseInt(fromValue, 16);
+                        break;
+                    case "Octal":
+                        to.value = parseInt(fromValue, 16).toString(8);
+                        break;
+                    default:
+                        to.value = fromValue;
+                }
+            } else {
+                error.style.display = "inherit";
+                error.innerText = "Invalid " + initialBase + " Number";
+                to.value = "";
+            }
+            break;
+
+        case "Octal":
+            fromValue = from.value;
+            if (/^[0-7]*$/.test(fromValue)) {//04567
+                switch (lastBase) {
+                    case "Binary":
+                        to.value = parseInt(fromValue, 8).toString(2);
+                        break;
+                    case "Decimal":
+                        to.value = parseInt(fromValue, 8);
+                        break;
+                    case "Hexadecimal":
+                        to.value = parseInt(fromValue, 8).toString(16).toUpperCase();
+                        break;
+                    default:
+                        to.value = fromValue;
+                }
+            } else {
+                error.style.display = "inherit";
+                error.innerText = "Invalid " + initialBase + " Number";
+                to.value = "";
+            }
+            break;
+    }
+});
