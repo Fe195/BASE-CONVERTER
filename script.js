@@ -1,128 +1,163 @@
-const fromSelected = document.getElementById("from-select");
-const toSelected = document.getElementById("to-select");
-const from = document.getElementById("from-input");
-const to = document.getElementById("to-input");
-const error = document.getElementById("error");
+const baseFrom= document.querySelector("#base-from");
+const baseTo= document.querySelector("#base-to");
+const input= document.querySelector("#txtNumber");
+const result= document.querySelector("#result");
+const swap= document.querySelector("#btnSwap");
+const convert= document.querySelector("#btnConvert");
+const checkBinary= /^[0-1]+$/;
+const checkDecimal= /^[0-9]+$/;
+const checkOctal= /^[0-7]+$/;
+const checkHexadecimal= /^(?!-)(?!.*-)[A-Ea-e0-9-]+(?<!-)$/;
 
-let initialBase; //= "Binary",
-let lastBase; //= "Binary";
+
+convert.addEventListener("click",function(){
+    const baseFrom= document.querySelector("#base-from");
+    const baseTo= document.querySelector("#base-to");
 
 
-// fromSelected.addEventListener("change", function() {
-//     initialBase = fromSelected.options[fromSelected.selectedIndex].text;
-//     from.placeholder = initialBase + " Number";
-// });
 
-// toSelected.addEventListener("change", function() {
-//     lastBase = toSelected.options[toSelected.selectedIndex].text;
-//     to.placeholder = lastBase + " Number";
-// });
+    const convertFrom = baseFrom.value;
+    // console.log(convertFrom);
+    const convertTo = baseTo.value;
+    // console.log(convertTo)
+    // console.log(input.value);
 
-from.addEventListener("input", function() {
-    error.style.display = "none";
-});
 
-let fromValue;
-document.getElementById("convert-button").addEventListener("click", function() {
-    initialBase = fromSelected.options[fromSelected.selectedIndex].text;
-    from.placeholder = initialBase + " Number";
-    console.log("first" + initialBase);
-    lastBase = toSelected.options[toSelected.selectedIndex].text;
-    to.placeholder = lastBase + " Number";
-    console.log("second" + lastBase);
-
-    switch (initialBase) {
-        case "Binary":
-            fromValue = from.value;
-            if (/^[01]*$/.test(fromValue)) { //110011->
-                switch (lastBase) {
-                    case "Decimal":
-                        to.value = parseInt(fromValue, 2);
-                        break;
-                    case "Hexadecimal":
-                        to.value = parseInt(fromValue, 2).toString(16).toUpperCase();
-                        break;
-                    case "Octal":
-                        to.value = parseInt(fromValue, 2).toString(8);
-                        break;
-                    default:
-                        to.value = fromValue;
-                }
-            } else {
-                error.style.display = "inherit";
-                error.innerText = "Invalid " + initialBase + " Number";
-                to.value = "";
-            }
-            break;
-
-        case "Decimal":
-            fromValue = from.value;
-            if (/^[0-9]*$/.test(fromValue)) {//12345
-                switch (lastBase) {
-                    case "Binary":
-                        to.value = Math.abs(fromValue).toString(2);
-                        break;
-                    case "Hexadecimal":
-                        to.value = Math.abs(fromValue).toString(16).toUpperCase();
-                        break;
-                    case "Octal":
-                        to.value = Math.abs(fromValue).toString(8);
-                        break;
-                    default:
-                        to.value = fromValue;
-                }
-            } else {
-                error.style.display = "inherit";
-                error.innerText = "Invalid " + initialBase +
-                    " Number";
-                to.value = "";
-            }
-            break;
-
-        case "Hexadecimal":
-            fromValue = from.value;
-            if (/^[0-9a-fA-F]*$/.test(fromValue)) {//0-9 a-f input = 123fAc
-                switch (lastBase) {
-                    case "Binary":
-                        to.value = parseInt(fromValue, 16).toString(2);
-                        break;
-                    case "Decimal":
-                        to.value = parseInt(fromValue, 16);
-                        break;
-                    case "Octal":
-                        to.value = parseInt(fromValue, 16).toString(8);
-                        break;
-                    default:
-                        to.value = fromValue;
-                }
-            } else {
-                error.style.display = "inherit";
-                error.innerText = "Invalid " + initialBase + " Number";
-                to.value = "";
-            }
-            break;
-
-        case "Octal":
-            fromValue = from.value;
-            if (/^[0-7]*$/.test(fromValue)) {//04567
-                switch (lastBase) {
-                    case "Binary":
-                        to.value = parseInt(fromValue, 8).toString(2);
-                        break;
-                    case "Decimal":
-                        to.value = parseInt(fromValue, 8);
-                        break;
-                    case "Hexadecimal":
-                        to.value = parseInt(fromValue, 8).toString(16).toUpperCase();
-                        break;
-                    default:
-                        to.value = fromValue;
-                }
-            } else {
-                error.style.display = "inherit";
-                error.innerText = "Invalid " + initialBase + " Number";
-                to.value = "";
-            }
-            break;
+    if(input.value==""){
+        result.value="Please Enter Input";
     }
-});
+    else {
+
+        
+        if(convertFrom == "from-binary" && convertTo == "to-decimal"){
+            if(checkBinary.test(input.value)){
+                result.value = parseInt(input.value,2);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }
+        }
+        else if(convertFrom == "from-binary" && convertTo == "to-hexadecimal"){
+            if(checkBinary.test(input.value)){
+                result.value = parseInt(input.value,2).toString(16).toUpperCase();
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }       
+        }
+        else if(convertFrom == "from-binary" && convertTo == "to-octal"){
+            if(checkBinary.test(input.value)){
+                result.value = parseInt(input.value,2).toString(8);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }       
+        }
+        else if(convertFrom == "from-binary" && convertTo == "to-binary"){
+            if(checkBinary.test(input.value)){
+                result.value = input.value;
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }             
+        }
+        else if(convertFrom == "from-decimal" && convertTo == "to-binary"){
+            if(checkDecimal.test(input.value)){
+                result.value = parseInt(input.value).toString(2);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }             
+        }
+        else if(convertFrom == "from-decimal" && convertTo == "to-hexadecimal"){
+            if(checkDecimal.test(input.value)){
+                result.value = parseInt(input.value).toString(16).toUpperCase();
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }                 
+        }
+        else if(convertFrom == "from-decimal" && convertTo == "to-octal"){
+            if(checkDecimal.test(input.value)){
+                result.value = parseInt(input.value).toString(8);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }          
+        }
+        else if(convertFrom == "from-decimal" && convertTo == "to-decimal"){
+            if(checkDecimal.test(input.value)){
+                result.value = input.value;
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }          
+        }
+        else if(convertFrom == "from-octal" && convertTo == "to-decimal"){
+            if(checkOctal.test(input.value)){
+                result.value = parseInt(input.value,8).toString(10);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }               
+        }
+        else if(convertFrom == "from-octal" && convertTo == "to-binary"){
+            if(checkOctal.test(input.value)){
+                result.value = parseInt(input.value,8).toString(2);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }      
+        }
+        else if(convertFrom == "from-octal" && convertTo == "to-hexadecimal"){
+            if(checkOctal.test(input.value)){
+                result.value = parseInt(input.value,8).toString(16).toUpperCase();
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }       
+        }
+        else if(convertFrom == "from-octal" && convertTo == "to-octal"){
+            if(checkOctal.test(input.value)){
+                result.value = input.value;
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }         
+        }
+        else if(convertFrom == "from-hexadecimal" && convertTo == "to-decimal"){ 
+            if(checkHexadecimal.test(input.value)){
+                result.value = parseInt(input.value,16).toString(10);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }         
+        }
+        else if(convertFrom == "from-hexadecimal" && convertTo == "to-octal"){ 
+            if(checkHexadecimal.test(input.value)){
+                result.value = parseInt(input.value,16).toString(8);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }       
+        }
+        else if(convertFrom == "from-hexadecimal" && convertTo == "to-binary"){
+            if(checkHexadecimal.test(input.value)){
+                result.value = parseInt(input.value,16).toString(2);
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }      
+        }
+        else if(convertFrom == "from-hexadecimal" && convertTo == "to-hexadecimal"){
+            
+            if(checkHexadecimal.test(input.value)){
+                result.value = input.value.toUpperCase();
+            }
+            else{
+                result.value="Please Enter Valid Input";
+            }      
+        }
+    }
+
+})
