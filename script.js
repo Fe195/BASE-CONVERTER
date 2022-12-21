@@ -161,3 +161,30 @@ convert.addEventListener("click",function(){
     }
 
 })
+
+// swap.addEventListener("click",function(){
+   
+   
+  
+// 	const temp=baseFrom.value;
+//     const temp2=baseTo.value;
+//     console.log(temp+"asd");
+//     console.log(temp2+"lkj");
+// 	baseTo.value=temp;
+// 	baseFrom.value=temp2;
+//     console.log(baseFrom.options)
+//     console.log(baseTo.options)
+
+
+
+//     let input= document.querySelector("#txtNumber");
+//     if (input.value !="") {
+//         input.value = "";
+//     }
+//     let result= document.querySelector("#result");
+//     if (result.value !="") {
+//         result.value = "";
+//     }
+
+   
+// })
