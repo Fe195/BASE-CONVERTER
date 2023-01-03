@@ -1,69 +1,88 @@
-*{
-    margin: 0px;
-    padding: 0px;
+* {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
-}
-body{
-    background-color: #a686c5 ;
-}
-.container{
-    background-color:#537f8b;
-    width: 835px;
-    height: 350px;
-    margin: 50px auto;
-    border-radius: 5px;
-    color:#fff;
-    padding: 30px 60px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-h2{
-    text-align: center;
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-#txtNumber{
-    width: 280px;
-    height: 35px;
-    border-radius: 2px;
-    border: none;
+body {
+    background-color: rgb(238, 234, 228);
 }
-#base-from{
-    width: 280px;
-    height: 35px;
-    border-radius: 2px;
+
+.converter {
+    /* border: 2px solid black; */
+    width: 60vw;
+    height: 70vh;
+    margin: 100px auto;
+
 }
-#base-to{
-    width: 280px;
-    height: 35px;
-    border-radius: 2px;
-    margin-left: 80px
+
+h1 {
+
+    text-align: center;
+    margin: auto;
+    padding: 15px;
+    font-size: 3rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+h2 {
+    margin: 16px 0px;
+    font-size: 2rem;
+}
+
+.unit {
+    width: 100%;
+    height: 30px;
+    font-size: 1.2rem;
+    padding-left: 5px;
+}
+
+.mid-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn {
+    background-color: rgb(75, 8, 243);
+    height: 45px;
+    color: white;
+    border-radius: 6px;
+    font-size: 1.2rem;
+}
+
+.swap {
+    width: 75px;
+    margin-left: 5px;
+}
+
+.convert {
+    width: 85px;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.input {
+    font-size: 1.5rem;
+    height: 250px;
+    font-weight: 500;
+    color: rgb(125, 55, 8);
+    background-color: rgb(224, 243, 241);
+}
+#text {
     
-}
-#btnConvert{
-    width: 280px;
-    height: 35px;
-    background-color:#212121;
-    color:#fff;
-    border-radius: 2px;
-    margin-left: 180px;
-}
-#btnSwap{
-    width: 280px;
-    height: 35px;
-    background-color:#212121;
-    color:#fff;
-    border: darkseagreen 0px solid;
-    border-radius: 2px;
-}
-#result{
-    width: 280px;
-    height: 35px;
-    border-radius: 2px;
-    border: none;
-    margin-left : 80px; 
-}
-#convert-to{
-    margin-left:260px
-}
-#span-result{
-    margin-left:240px
 }
